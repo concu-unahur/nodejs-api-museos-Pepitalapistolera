@@ -14,9 +14,30 @@ function imprimirMuseos(error, respuesta) {
 
 console.log('Antes de llamar a superagent')
 
+function PegarleApi(error) {
 superagent
   .get('https://www.cultura.gob.ar/api/v2.0/museos')
   .query({ format: 'json' })
-  .end(imprimirMuseos)
+  .end(escribirArchivo)
+}
 
-console.log('Después de llamar a superagent')
+function escribirArchivo(error, respuesta) {
+  fs.writeFile('museos.txt', museos.imprimirMuseos.nombre, terminar);
+}
+
+function terminar(error) {
+  if(error) {
+      throw new Error('No se pudo escribir')
+  }
+
+  console.log('Todo anda jamon, podes leer tu archivo')
+}
+PegarleApi.imprimirMuseos
+
+// superagent
+//   .get('https://www.cultura.gob.ar/api/v2.0/museos')
+//   .query({ format: 'json' })
+//   .end(imprimirMuseos)
+
+console.log('Después de llamar a superagent') //escrbir rchivo
+//devuelve errror y respuesta
